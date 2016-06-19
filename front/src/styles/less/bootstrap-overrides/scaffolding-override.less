@@ -1,0 +1,23 @@
+html,
+body {
+  height: 100%;
+
+  > .container-fluid {
+    height: auto;
+    min-height: 100%;
+
+    > .row {
+      height: auto;
+      min-height: 100vh;
+    }
+  }
+
+  .row {
+    &.row-eq-height {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+    }
+  }
+}

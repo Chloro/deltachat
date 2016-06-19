@@ -1,0 +1,42 @@
+<div id="page-signin">
+
+  <form class="form-horizontal" ng-submit="login(user)">
+
+    <!--<img alt="{{'ada.edgeLogo256x128'}}" class="img-responsive" src="/assets/edge-logo-norm256x128.png"/>-->
+
+    <div class="form-group">
+      <label class="col-xs-4 col-sm-3 control-label text-right" for="username-input" translate>
+        {{'signIn.username'}}
+      </label>
+      <div class="col-xs-8 col-sm-9">
+        <input class="form-control" id="username-input" data-test="username-input"
+               ng-model="user.username" type="text"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-xs-4 col-sm-3 control-label text-right" for="password-input" translate>
+        {{'signIn.password'}}
+      </label>
+      <div class="col-xs-8 col-sm-9">
+        <input class="form-control" id="password-input" data-test="password-input"
+               ng-model="user.password" type="text"/>
+      </div>
+    </div>
+    <div class="form-group" ng-if="authenticationError">
+      <div class="col-xs-6 col-xs-offset-5 col-sm-7 col-sm-offset-4 text-center text-danger">
+        {{authenticationError}}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-xs-6 col-xs-offset-5 col-sm-7 col-sm-offset-4">
+        <button class="btn btn-primary btn-block" type="submit"
+                data-test="sign-in-button" translate>
+          {{'signIn.logIn'}}
+        </button>
+      </div>
+    </div>
+  </form>
+
+</div>

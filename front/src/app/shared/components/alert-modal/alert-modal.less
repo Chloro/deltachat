@@ -1,0 +1,66 @@
+.alert-modal {
+
+  .alert {
+    border: none;
+    margin-bottom: 0;
+    padding-bottom: 30px;
+  }
+
+  .alerts {
+    font-size: @font-size-large;
+    font-weight: 900;
+  }
+
+  .close {
+    color: @eui-text-color-tertiary;
+    opacity: 1;
+  }
+
+  ul {
+    padding-left: 20px;
+  }
+
+  @media(max-width: @eui-sm-max) {
+    ul {
+      padding-left: 40px;
+    }
+  }
+
+  .alert-danger {
+    color: @eui-text-color-primary;
+    background-color: @eui-ada-danger;
+  }
+
+  .alert-info {
+    color: @eui-text-color-primary;
+    background-color: @eui-ada-info;
+  }
+
+  .alert-primary {
+    color: @eui-text-color-primary;
+    background-color: @eui-ada-primary;
+  }
+
+  .alert-success {
+    color: @eui-text-color-primary;
+    background-color: @eui-ada-success;
+  }
+
+  .alert-warning {
+    color: @eui-text-color-primary;
+    background-color: @eui-ada-warning;
+  }
+
+}
+
+.modal-backdrop {
+  height: 100%;
+
+  &.hide-modal-backdrop {
+    height: 0;
+  }
+}
+
+.modal-open {
+  position: relative;
+}

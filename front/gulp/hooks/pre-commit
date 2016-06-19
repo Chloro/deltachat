@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo
+node node_modules/gulp/bin/gulp.js --gulpfile gulpfile.js hook-lint --color
+exit $?

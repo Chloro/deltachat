@@ -1,0 +1,12 @@
+{
+  "app": {
+    "title": "Deltachat",
+    "close": "Close",
+    "loading": "Loading..."
+  },
+  "login": {
+    "logIn": "Log In",
+    "password": "Password",
+    "username": "Username"
+  }
+}

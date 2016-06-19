@@ -1,0 +1,105 @@
+<div id="page-demo">
+
+  <subheader description="'demo.pageDescription'"
+             page-title="'demo.pageTitle'"
+             icon-classes="'fa fa-bed fa-3x'">
+  </subheader>
+
+  <div class="row text-center">
+    <div class="col-xs-12">
+      <h3 translate>{{'demo.pageTabsHeader'}}</h3>
+      <tabs display-tabs="demoTabs"></tabs>
+    </div>
+  </div>
+
+  <div class="row text-center">
+    <div class="col-xs-12">
+      <div ui-view></div>
+    </div>
+  </div>
+
+  <br/>
+  <hr/>
+  <br/>
+
+  <div class="row text-center">
+    <div class="col-xs-12 col-sm-4 col-sm-offset-1">
+      <h3 translate>{{'demo.alertModal'}}</h3>
+      <button class="btn btn-block btn-danger"
+              data-test="blocking-alert-btn"
+              ng-click="openAlertModal('danger', true)"
+              translate
+              type="button">
+        {{'demo.alertModalBlocking'}}
+      </button>
+      <button class="btn btn-block btn-warning"
+              data-test="blocking-timed-alert-btn"
+              ng-click="openAlertModal('warning', true, 2000)"
+              translate
+              type="button">
+        {{'demo.alertModalBlockingTimed'}}
+      </button>
+      <button class="btn btn-block btn-info"
+              data-test="nonblocking-alert-btn"
+              ng-click="openAlertModal('info', false);"
+              translate
+              type="button">
+        {{'demo.alertModalNonBlocking'}}
+      </button>
+      <button class="btn btn-block btn-success"
+              data-test="nonblocking-timed-alert-btn"
+              ng-click="openAlertModal('success', false, 2000)"
+              translate
+              type="button">
+        {{'demo.alertModalNonBlockingTimed'}}
+      </button>
+    </div>
+    <div class="col-xs-12 col-sm-4 col-sm-offset-1">
+      <h3 translate>{{'demo.localization'}}</h3>
+      <div class="clock">
+        <strong>{{ date | date:'mediumTime' }}</strong>
+        <span>{{ date | date:'EEEE' }},</span>
+        <span>{{ date | date:'shortDate'}}</span>
+      </div>
+      <select class="form-control"
+              ng-change="updateLocale(chosenLocale)"
+              ng-init="locale.name"
+              ng-model="chosenLocale"
+              ng-options="chosenLocale as chosenLocale.name for chosenLocale in locales">
+      </select>
+    </div>
+  </div>
+
+  <br/>
+  <hr/>
+  <br/>
+
+  <div class="row text-center">
+    <div class="col-xs-12 col-sm-4 col-sm-offset-1">
+      <h3 translate>{{'demo.buttonLoading'}}</h3>
+      <button aria-live="assertive"
+              button-loading="btnLoad"
+              class="btn btn-primary"
+              data-test="button-loading"
+              ng-click="btnLoad = !btnLoad"
+              translate
+              type="button">
+        {{'demo.clickMe'}}
+      </button>
+    </div>
+    <div class="col-xs-12 col-sm-4 col-sm-offset-1">
+      <h3 translate>{{'demo.popover'}}</h3>
+      <div aria-live="polite">
+        <button uib-popover-template="'/pages/demo/demo-popover.html'"
+                popover-trigger="focus"
+                type="button"
+                class="btn btn-primary"
+                data-test="popover-button"
+                translate>
+          {{'demo.popoverButtonText'}}
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
