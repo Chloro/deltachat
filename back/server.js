@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname + '/public')));
 app.use(passport.initialize());
 
 //Load the rest of the application.
-require(__dirname + '/app_back/index.js')(app, io, auth);
+require(__dirname + '/app/index.js')(app, io, auth);
 
 // Catch unauthorised errors
 app.use(function (error, request, response, next) {
@@ -44,7 +44,7 @@ app.all('/*', function(req, res, next) {
 });
 
 //Connect to mongodb.
-mongoose.connect('mongodb://localhost:27017/chatalyst', function(error){
+mongoose.connect('mongodb://localhost:27017/deltachat', function(error){
     if(error) {
         console.log('Database connection failed. ' + error);
     } else {

@@ -9,17 +9,7 @@
     <link rel="stylesheet" type="text/css" href="bundle.css">
   </head>
   <body>
-    <div class="container-fluid">
-      <div class="row row-eq-height">
-        <div side-nav id="side-nav" class="hidden-xs col-sm-4 col-md-3" ng-if="$root.showSideNav"></div>
-        <div class="col-xs-12"
-             id="main-view"
-             main-view
-             ng-class="{'col-sm-8 col-md-9': $root.showSideNav, 'col-sm-12': !$root.showSideNav}"
-             ui-view >
-        </div>
-      </div>
-    </div>
+    <div id="main-view" main-view ui-view></div>
     <script src="deltachat-app.js" charset="utf-8"></script>
   </body>
 </html>

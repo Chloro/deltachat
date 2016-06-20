@@ -1,5 +1,0 @@
-#!/bin/bash
-
-echo
-node node_modules/gulp/bin/gulp.js --gulpfile gulpfile.js test --color
-exit $?
