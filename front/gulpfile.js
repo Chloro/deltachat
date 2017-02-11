@@ -55,12 +55,12 @@ gulp.task('dev-nosync', ['clean'], function() {
   gulp.start('watch');
 });
 
-//This task builds the project and watches non-spec files.
+//This task builds the project and watches non-spec files
 gulp.task('dev', ['dev-nosync'], function() {
 	gulp.start('browser-sync');
 });
 
-//This task just builds the project normally.
+//This task just builds the project normally
 gulp.task('default', ['clean'], function() {
   gulp.start('version');
   gulp.start('assets-images');
