@@ -1,6 +1,11 @@
-module.exports = angular.module('deltaChat.shared.services', [])
+module.exports = angular.module('deltachat-ui.shared.services', [])
+    .factory('$moment', require('./momentjs.service'))
     .factory('authenticationService', require('./authentication.service'))
+    .factory('bundleResolverProviderService', require('./bundle-resolver-provider.service'))
+    .factory('dateTimeService', require('./date-time.service'))
+    .factory('errorService', require('./error.service'))
     .factory('httpInterceptor', require('./httpInterceptor.service'))
     .factory('localeService', require('./locale.service'))
+    .factory('localStorageService', require('./local-storage.service'))
     .factory('sessionStorageService', require('./sessionStorage.service'))
 ;

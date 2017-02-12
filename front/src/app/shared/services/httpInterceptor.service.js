@@ -1,35 +1,37 @@
 module.exports = /*@ngInject*/ function(
+    $injector,
     $q,
     localeService,
-    sessionStorageService,
-    uuid
+    sessionStorageKeyConstant,
+    sessionStorageService
 ) {
 
   function request(config) {
-    sessionStorageService.setTrackingId(uuid.v4()); //Move this logic to successful login when login is added.
-    var authToken = sessionStorageService.getAuthToken();
-    var trackingID = sessionStorageService.getTrackingId();
+    var authenticationService = $injector.get('authenticationService');
+    var authToken = sessionStorageService.get(sessionStorageKeyConstant.AUTH_TOKEN);
+
     config.headers.Accept = 'application/json, text/plain, */*';
-    config.headers['X-ChoiceEdge-Requestor'] = 'EDGE_UI';
     config.headers['Accept-Language'] = localeService.getLocale().lang;
 
-    var url = config.url.split('/');
-    if (config.method === 'POST' && _.includes(url, 'agent-account') && _.includes(url, 'login')) {
-      config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
-    }
-
     if (authToken) {
-      config.headers.Authorization = 'Bearer ' + authToken;
+      config.headers.Authorization = 'Bearer ' + authToken.token;
     }
 
-    if (trackingID) {
-      config.headers['X-ChoiceEdge-TrackingId'] = trackingID;
+    if (_.startsWith(config.url, 'http') &&
+        !(_.endsWith(config.url, 'login') || _.endsWith(config.url, 'refresh-token'))) {
+      authenticationService.refreshTokenIfStale();
     }
 
     return config;
   }
 
+  function response(response) {
+    return (response.data && response.data.messages && response.data.messages.length >= 1 && !response.data.items) ?
+        $q.reject(response) : response;
+  }
+
   return {
-    request: request
+    request: request,
+    response: response
   };
 };

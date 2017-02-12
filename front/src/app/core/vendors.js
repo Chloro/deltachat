@@ -1,0 +1,20 @@
+window.angular = require('angular');
+window.moment = require('moment');
+window._ = require('lodash');
+
+require('ngstorage/ngStorage');
+require('angular-uuid');
+require('angular-animate');
+require('angular-aria');
+require('angular-sanitize');
+require('angular-ui-router');
+require('angular-translate');
+require('angular-cookies');
+require('angular-messages');
+require('angular-resource');
+require('angular-translate-loader-static-files');
+require('angular-translate-storage-cookie');
+require('angular-translate-storage-local');
+require('angular-dynamic-locale');
+require('angular-material');
+require('oclazyload');

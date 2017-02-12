@@ -1,0 +1,16 @@
+<div data-test="modal" id="modal" tabindex="0">
+  <div class="modal-header text-right">
+    <h1 class="pull-left text-left" ng-if="modalTitle">
+      <i class="fa {{modalTitleIcon}}" ng-if="modalTitleIcon"></i> <span>{{::modalTitle}}</span>
+    </h1>
+    <button class="btn btn-link" data-test="modal-close-button" id="modal-close" ng-click="$close()">
+      <i class="fa fa-times"></i>
+      <span class="sr-only" translate>{{::'app.close'}}</span>
+    </button>
+  </div>
+  <div class="modal-body" ng-include src="modalContent"></div>
+  <div class="modal-footer" ng-if="modalFooter" ng-include src="modalFooter"></div>
+  <a class="sr-only" href="" ng-click="focusCloseButton($event)" translate>
+    {{::'app.endOfModal'}}
+  </a>
+</div>

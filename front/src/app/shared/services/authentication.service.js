@@ -1,7 +1,9 @@
 module.exports = /*@ngInject*/ function(
     $q,
-    authenticationResource,
     errorConstant,
+    errorService,
+    loginService,
+    sessionStorageKeyConstant,
     sessionStorageService
 ) {
 
@@ -15,26 +17,26 @@ module.exports = /*@ngInject*/ function(
    * and their token, or if the promise is rejected it will contain the error.
    */
   function authenticate(username, password) {
+    var params = {
+      username: username,
+      password: password
+    };
+
     var result = $q.defer();
-    authenticationResource.save(username, password)
-        .then(function(response){
-          var parts = response.authorizationToken.split('.');
-          var decodedToken = JSON.parse(urlBase64Decode(parts[1]));
-          var token = {
-            token: response.authorizationToken,
-            lifecycleExpiration: response.lifecycleExpirationDateTime,
-            lifecycleExpirationActual: decodedToken.iat,
-            tokenExpiration: response.tokenExpirationDateTime,
-            tokenExpirationActual: decodedToken.exp
-          };
+    loginService.post(params)
+        .then(function(response) {
+          var enrichedToken = transformToken(response);
+          response.userAccount.username = username;
           result.resolve({
-            token: token,
-            user: response.agentAccount
+            token: enrichedToken,
+            user: response.userAccount
           });
-          sessionStorageService.setAuthToken(token);
-          sessionStorageService.setCurrentUser(response.agentAccount);
+
+          sessionStorageService.set(sessionStorageKeyConstant.AUTH_TOKEN, enrichedToken);
+          sessionStorageService.set(sessionStorageKeyConstant.CURRENT_USER, response.userAccount);
+          sessionStorageService.set(sessionStorageKeyConstant.ORGANIZATION_CODE, 'EC');
         })
-        .catch(function(error){
+        .catch(function(error) {
           result.reject(error);
         });
 
@@ -44,7 +46,7 @@ module.exports = /*@ngInject*/ function(
   /**
    * Function which checks the token's expiration date object against current datetime and returns true if expiration
    * date is later than current datetime.
-   * 
+   *
    * @param {Object} token - Token with an expiration date.
    * @returns {Boolean} Returns true if expiration date is later than current datetime or
    * if an invalid token is provided.
@@ -52,20 +54,48 @@ module.exports = /*@ngInject*/ function(
   function isTokenExpired(token) {
     var expirationStatus = true;
     if (token && token.tokenExpirationActual) {
-      var tokenExpirationDate = new Date(token.tokenExpirationActual);
-      tokenExpirationDate.setUTCSeconds(tokenExpirationDate);
       var now = new Date();
-      var nowUTCDate = new Date(
-          now.getUTCFullYear(),
-          now.getUTCMonth(),
-          now.getUTCDate(),
-          now.getUTCHours(),
-          now.getUTCMinutes(),
-          now.getUTCSeconds()
-      );
-      expirationStatus = tokenExpirationDate.valueOf() <= nowUTCDate.valueOf();
+      expirationStatus = token.tokenExpirationActual * 1000 <= now.valueOf();
     }
     return expirationStatus;
+  }
+
+  /**
+   * Function checks a token to see if it is stale. Stale is defined as expiring within the next 5 minutes.
+   *
+   * @param {Object} token - Token with an expiration date.
+   * @returns {promise} Returns a promise object which when resolved contains the successfully refreshed token
+   * or if the promise is rejected it will contain the service error or a custom error if the token has already
+   * expired, it isn't stale, or if there is no token in session at all.
+   */
+  function isTokenStale(token) {
+    var isStale = false;
+    if (token && token.tokenExpirationActual) {
+      var now = new Date();
+      var timeRemaining = token.tokenExpirationActual * 1000 - now.valueOf();
+      isStale = timeRemaining >= 0 && timeRemaining < 300000;
+    }
+    return isStale;
+  }
+
+  /**
+   * Function checks the current session token to see if it is stale, and if it is the token will be refreshed.
+   *
+   * @returns {promise} Returns a promise object which when resolved contains the successfully refreshed token
+   * or if the promise is rejected it will contain the service error or a custom error if the token has already
+   * expired, it isn't stale, or if there is no token in session at all.
+   */
+  function refreshTokenIfStale() {
+    var authToken = sessionStorageService.get(sessionStorageKeyConstant.AUTH_TOKEN);
+    var isExpired = isTokenExpired(authToken);
+    var isStale = isTokenStale(authToken);
+    var result = $q.defer();
+    if (authToken && !isExpired && isStale) {
+      result.resolve(refreshToken());
+    } else {
+      result.reject(errorService.createError(errorConstant.REFRESH));
+    }
+    return result.promise;
   }
 
   /**
@@ -81,15 +111,30 @@ module.exports = /*@ngInject*/ function(
       case 2: { output += '=='; break; }
       case 3: { output += '='; break; }
       default: {
-        throw new Error(errorConstant.DECODE);
+        throw new Error(errorService.createError(errorConstant.DECODE));
       }
     }
     return decodeURIComponent(escape(window.atob(output)));
   }
 
+  function transformToken(token) {
+    var parts = token.authenticationToken.split('.');
+    var decodedToken = JSON.parse(urlBase64Decode(parts[1]));
+    return {
+      token: token.authenticationToken,
+      lifecycleExpiration: token.lifecycleExpirationDateTime,
+      lifecycleExpirationActual: decodedToken.iat,
+      tokenExpiration: token.tokenExpirationDateTime,
+      tokenExpirationActual: decodedToken.exp
+    };
+  }
+
   return {
     authenticate: authenticate,
     decode: urlBase64Decode,
-    isTokenExpired: isTokenExpired
+    isTokenExpired: isTokenExpired,
+    isTokenStale: isTokenStale,
+    refreshTokenIfStale: refreshTokenIfStale,
+    transformToken: transformToken
   };
 };

@@ -1,12 +1,24 @@
 {
   "app": {
-    "title": "Deltachat",
+    "add": "Add",
+    "apply": "Apply",
+    "cancel": "Cancel",
     "close": "Close",
-    "loading": "Loading..."
-  },
-  "login": {
-    "logIn": "Log In",
-    "password": "Password",
-    "username": "Username"
+    "configure": "Configure",
+    "delete": "Delete",
+    "description": "Description",
+    "edit": "Edit",
+    "error": "Error",
+    "loading": "Loading...",
+    "no": "No",
+    "none": "None",
+    "profile": "Profile",
+    "required": "Required",
+    "reset": "Reset",
+    "save": "Save",
+    "search": "Search",
+    "title": "Deltachat",
+    "version": "version",
+    "yes": "Yes"
   }
 }

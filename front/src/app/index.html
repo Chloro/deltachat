@@ -1,15 +1,20 @@
 <!DOCTYPE html>
-<html ng-app="deltaChat" lang="en">
+<html ng-app="deltachat-ui" lang="en">
   <head>
     <link rel='shortcut icon' href='assets/favicon.ico' type='image/x-icon'>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=10, user-scalable=1">
     <title ng-cloak translate="app.title"></title>
     <base href="/">
     <link rel="stylesheet" type="text/css" href="bundle.css">
   </head>
   <body>
-    <div id="main-view" main-view ui-view></div>
-    <script src="deltachat-app.js" charset="utf-8"></script>
+    <div id="main-view"
+         main-view
+         ui-view>
+    </div>
+    <script src="bundles/vendor.js" charset="utf-8"></script>
+    <script src="bundles/app.js" charset="utf-8"></script>
+    <dc-aria-live delay="ariaLive.delay" message="ariaLive.message" tone="ariaLive.tone"></dc-aria-live>
   </body>
 </html>

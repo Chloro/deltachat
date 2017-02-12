@@ -1,0 +1,11 @@
+.idea
+/src/app/core/version.js
+coverage
+dist
+docs/jsdoc
+node_modules
+target
+npm-debug.log
+.project
+.settings/org.eclipse.core.resources.prefs
+.settings/org.eclipse.m2e.core.prefs

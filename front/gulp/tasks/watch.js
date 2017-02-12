@@ -10,8 +10,6 @@ module.exports = function(config, constants, env, gulp, plugins, utilities) {
     plugins.util.log(plugins.util.colors.yellow('Watching language assets...'));
     gulp.watch(config.tasks.watch.assets.images.src, ['assets-images']).on('change', changeDetected);
     plugins.util.log(plugins.util.colors.yellow('Watching image assets...'));
-    gulp.watch(config.tasks.watch.templates, ['markup']).on('change', changeDetected);
-    plugins.util.log(plugins.util.colors.yellow('Watching templates...'));
     plugins.util.log(plugins.util.colors.yellow('Watching spec files...'));
     gulp.watch(config.tasks.watch.test, function(file) {
       plugins.util.log(plugins.util.colors.yellow('Change detected in file: ' + file.path + ' running it\'s tests...'));

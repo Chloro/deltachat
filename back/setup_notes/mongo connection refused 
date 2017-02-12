@@ -1,2 +1,0 @@
-sudo rm /MTG_Detect/Database/data/mongod.lock
-sudo service mongod restart

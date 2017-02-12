@@ -1,0 +1,20 @@
+// Angular material styling
+@import '../../../node_modules/angular-material/angular-material.scss';
+
+
+//// Removes sidenav animation
+//.md-sidenav-backdrop {
+//  opacity: 0 !important;
+//}
+//
+//md-sidenav.md-closed-add,
+//md-sidenav.md-closed-remove,
+//md-sidenav.md-closed-add.md-closed-add-active,
+//md-sidenav.md-closed-remove.md-closed-remove-active,
+//md-sidenav.md-locked-open-remove-active,
+//md-sidenav.md-closed.md-locked-open-add-active
+//
+//{
+//  -webkit-transition: none !important;
+//  transition: none !important;
+//}

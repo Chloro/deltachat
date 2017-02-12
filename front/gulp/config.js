@@ -2,10 +2,10 @@ var resolve = require('path').resolve;
 var root = resolve(__dirname, '..');
 var version = require('../package.json').version;
 
-var dest = resolve(root, './dist/deltachat-' + version);
+var dest = resolve(root, './dist/Deltachat-UI-' + version);
 var env = require('./env');
-var istanbul = require('browserify-istanbul');
 var src = resolve(root, './src');
+var webpack = require('webpack');
 
 module.exports = {
   paths: {
@@ -15,20 +15,18 @@ module.exports = {
   },
   app: {
     dest: dest,
-    name: 'deltachat.js',
-    src: src + '/app/core/deltachat-app.js',
+    name: 'app.js',
+    src: src + '/app/core/app.js',
     templates: src + '/app/**/**.html',
+    vendor: 'vendor.js',
     version: version
   },
   tasks: {
-    browserify: {
-      cache: {},
-      debug: env.sourceMaps,
-      entries: src + '/app/core/deltachat.js',
-      fullPaths: true,
-      packageCache: {}
-    },
-    browserSync: {
+    browsersync: {
+      files: [
+        dest + '/**/*.js',
+        dest + '/**/*.html'
+      ],
       ghostMode: {
         clicks: true,
         forms: true,
@@ -39,6 +37,23 @@ module.exports = {
       logConnections: false,
       logFileChanges: false,
       open: false,
+      reloadDebounce: 1000,
+      server: {
+        baseDir: dest
+      }
+    },
+    browsersyncNoSync: {
+      files: [
+        dest + '/**/*.js',
+        dest + '/**/*.html'
+      ],
+      ghostMode: false,
+      logLevel: 'warn',
+      logPrefix: 'BrowserSync',
+      logConnections: false,
+      logFileChanges: false,
+      open: false,
+      reloadDebounce: 1000,
       server: {
         baseDir: dest
       }
@@ -56,8 +71,14 @@ module.exports = {
         files: [
           root + '/gulpfile.js',
           root + '/gulp/**/*.js',
-          root + '/test/**/*.js',
           src + '/app/**/**.js'
+        ]
+      },
+      utf8: {
+        files: [
+          src + '/app/**/**.html',
+          src + '/app/**/**.js',
+          src + '/styles/**/**.less'
         ]
       }
     },
@@ -69,70 +90,30 @@ module.exports = {
         src: src + '/styles/fonts/*.{eot,svg,ttf,woff,woff2}'
       },
       less: {
-        name: 'bundle.css',
         src: src + '/styles/less/common.less'
+      },
+      sass: {
+        src: src + '/styles/sass/common.scss'
+      },
+      merge: {
+        name: 'bundle.css'
       }
     },
-    test: {
-      karma: {
-        configSrc: root + '/karma.conf.js',
-        config: {
-          autoWatch: false,
-          autoWatchBatchDelay: 500,
-          basePath: '',
-          browserify: {
-            debug: true,
-            transform: [istanbul({
-              ignore: [
-                '**/node_modules/**',
-                '**/*.specs.js',
-                '**/index.js',
-                '**/states.js',
-                '**/deltachat.js',
-                '**/*.constant.js'
-              ]
-            })]
-          },
-          browsers: ['PhantomJS'],
-          colors: true,
-          coverageReporter: {
-            reporters: [
-              {type: 'text-summary'},
-              {type: 'html', dir: 'coverage/'}
-            ]
-          },
-          concurrency: Infinity,
-          exclude: [],
-          defaultFiles: [
-            'node_modules/angular/angular.js',
-            'node_modules/angular-mocks/angular-mocks.js',
-            'node_modules/lodash/index.js'
-          ],
-          frameworks: ['browserify', 'jasmine'],
-          mochaReporter: {
-            output: 'full'
-          },
-          plugins: [
-            'karma-browserify',
-            'karma-coverage',
-            'karma-jasmine',
-            'karma-mocha-reporter',
-            'karma-phantomjs-launcher'
-          ],
-          port: 9876,
-          preprocessors: {
-            'src/app/**/*.js': ['browserify']
-          },
-          reporters: ['mocha', 'coverage'],
-          restartOnFileChange: true,
-          singleRun: true
-        }
-      },
-      src: src + '/app/**/*.specs.js'
-    },
     translate: {
-      clientId: 'gulp-translate-json',
-      clientSecret: 'zUq/6bV7/gUAC9vCu1B9KzY2REIzXty3NJkGo+5wEx4=',
+      clientIds:[
+        {
+          clientId: 'gulp-translate-json-1',
+          secret: '+JjfCJjuFZ9uNf1wP54z6xBDG9Ncqp8f7Qe3qyts45o='
+        },
+        {
+          clientId: 'gulp-translate-json-2',
+          secret: 'j7GFFH6GL1Fo7hQhqjDjTqU+K1MCy01wJCk+/FgBb6g='
+        },
+        {
+          clientId: 'gulp-translate-json-3',
+          secret: 'AWHjrdJ8NlnQ6/e3NMKcs70MOV7ACl8WcPWKKa7vGwg='
+        }
+      ],
       locales: [
         {
           name: 'Arabic',
@@ -141,10 +122,34 @@ module.exports = {
           lang: 'ar'
         },
         {
+          name: 'Egyptian Arabic',
+          localeCode: 'ar-eg',
+          langCode: 'ar_EG',
+          lang: 'ar-eg'
+        },
+        {
+          name: 'German',
+          localeCode: 'de',
+          langCode: 'de',
+          lang: 'de'
+        },
+        {
+          name: 'English',
+          localeCode: 'en',
+          langCode: 'en',
+          lang: 'en'
+        },
+        {
           name: 'English US',
           localeCode: 'en-us',
           langCode: 'en_US',
           lang: 'en-us'
+        },
+        {
+          name: 'English UK',
+          localeCode: 'en-gb',
+          langCode: 'en_GB',
+          lang: 'en-gb'
         },
         {
           name: 'French',
@@ -157,22 +162,17 @@ module.exports = {
           localeCode: 'zh-cn',
           langCode: 'zh_CN',
           lang: 'zh-cn'
+        },
+        {
+          name: 'Chinese Traditional',
+          localeCode: 'zh-tw',
+          langCode: 'zh_TW',
+          lang: 'zh-tw'
         }
       ],
       masterLanguage: 'en',
       src: src + '/assets/languages/strings.json',
       dest: src + '/assets/languages'
-    },
-    uglify: {
-      mangle: true
-    },
-    ngannotate: {
-      add: true,
-      remove: false,
-      'single_quotes': true
-    },
-    verifySpecs: {
-      src: src + '/@(app)/**/!(*specs|*mock).js'
     },
     version: {
       dest: src + '/app/core/version.js'
@@ -191,15 +191,74 @@ module.exports = {
           dest: dest + '/assets',
           src: root + '/node_modules/angular-i18n/{' +
             'angular-locale_ar,' +
+            'angular-locale_ar-eg,' +
+            'angular-locale_de,' +
+            'angular-locale_en,' +
             'angular-locale_en-us,' +
+            'angular-locale_en-gb,' +
             'angular-locale_fr,' +
             'angular-locale_zh-cn,' +
+            'angular-locale_zh-tw' +
             '}.js'
         }
       },
       less: src + '/**/*.less',
-      templates: src + '/**/*.html',
-      test: src + '/app/**/*.specs.js'
-    }
+      templates: src + '/**/*.html'
+    },
+    webpack: [
+      // App Bundles
+      {
+        devtool: env.sourceMaps ? 'inline-sourcemap' : null,
+        entry: {
+          'app': src + '/app/core/app.js'
+        },
+        module: {
+          loaders: [
+            {test: /\.json$/, loader: 'json'},
+            {test: /\.js$/, loader: 'ng-annotate?add=true&remove=false&single_quotes=true'},
+            {test: /\.html$/, loader: 'html?attrs=false'}
+          ]
+        },
+        output: {
+          filename: '[name].js',
+          path: resolve(dest + '/bundles'),
+          publicPath: '/bundles/'
+        },
+        plugins: [
+          new webpack.optimize.UglifyJsPlugin({
+            compress: {
+              drop_debugger: false,
+              warnings: false
+            },
+            mangle: env.minify,
+            output: {beautify: !env.minify}
+          }),
+          new webpack.optimize.DedupePlugin()
+        ],
+        watch: env.watch
+      },
+      // Vendor Bundle
+      {
+        entry: {
+          'vendor': src + '/app/core/vendors.js'
+        },
+        output: {
+          filename: '[name].js',
+          path: resolve(dest + '/bundles'),
+          publicPath: '/bundles/'
+        },
+        plugins: [
+          new webpack.optimize.UglifyJsPlugin({
+            compress: {
+              drop_debugger: false,
+              warnings: false
+            },
+            mangle: true
+          }),
+          new webpack.optimize.DedupePlugin()
+        ]
+      }
+
+    ]
   }
 };

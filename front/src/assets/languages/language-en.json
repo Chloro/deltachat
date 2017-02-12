@@ -1,0 +1,24 @@
+{
+  "app": {
+    "add": "Add",
+    "apply": "Apply",
+    "cancel": "Cancel",
+    "close": "Close",
+    "configure": "Configure",
+    "delete": "Delete",
+    "description": "Description",
+    "edit": "Edit",
+    "error": "Error",
+    "loading": "Loading...",
+    "no": "No",
+    "none": "None",
+    "profile": "Profile",
+    "required": "Required",
+    "reset": "Reset",
+    "save": "Save",
+    "search": "Search",
+    "title": "Deltachat",
+    "version": "version",
+    "yes": "Yes"
+  }
+}

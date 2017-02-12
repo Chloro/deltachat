@@ -1,0 +1,24 @@
+{
+  "app": {
+    "add": "Hinzufügen",
+    "apply": "Gelten",
+    "cancel": "Abbrechen",
+    "close": "In der Nähe",
+    "configure": "Konfigurieren",
+    "delete": "Löschen",
+    "description": "Beschreibung",
+    "edit": "Bearbeiten",
+    "error": "Fehler",
+    "loading": "Werden geladen...",
+    "no": "Nein",
+    "none": "Keine",
+    "profile": "Profil",
+    "required": "Erforderlich",
+    "reset": "Zurücksetzen",
+    "save": "Speichern",
+    "search": "Suche",
+    "title": "Deltachat",
+    "version": "Version",
+    "yes": "Ja"
+  }
+}

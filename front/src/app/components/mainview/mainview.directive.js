@@ -1,4 +1,4 @@
-module.exports = /*@ngInject*/ function() {
+module.exports = function() {
   return {
     templateUrl: '/components/mainview/mainview.html'
   };

@@ -1,3 +1,3 @@
-module.exports = angular.module('deltaChat.components.mainview', [])
+module.exports = angular.module('deltachat-ui.components.mainview', [])
   .directive('mainView', require('./mainview.directive'))
 ;

@@ -1,0 +1,24 @@
+{
+  "app": {
+    "add": "Ajouter",
+    "apply": "S’appliquent",
+    "cancel": "Annuler",
+    "close": "Fermer",
+    "configure": "Configurer",
+    "delete": "Supprimer",
+    "description": "Description",
+    "edit": "Edit",
+    "error": "Erreur",
+    "loading": "Chargement...",
+    "no": "N°",
+    "none": "Aucun",
+    "profile": "Voir le profil",
+    "required": "Obligatoire",
+    "reset": "Remise à zéro",
+    "save": "Enregistrer",
+    "search": "Recherche",
+    "title": "Deltachat",
+    "version": "Version",
+    "yes": "Oui"
+  }
+}

@@ -1,5 +1,4 @@
-module.exports = angular.module('deltaChat.pages', [
-    require('./demo').name,
-    require('./partner').name,
-    require('./sign-in').name
+module.exports = angular.module('deltachat-ui.pages', [
+  require('./dashboard').name,
+  require('./login').name
 ]);

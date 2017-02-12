@@ -1,4 +1,3 @@
-module.exports = angular.module('deltaChat.shared.resources', [
-    require('./authentication').name,
-    require('./partner').name
+module.exports = angular.module('deltachat-ui.shared.resources', [
+  require('./login').name
 ]);

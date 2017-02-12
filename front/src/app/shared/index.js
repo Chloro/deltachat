@@ -1,6 +1,6 @@
-module.exports = angular.module('deltaChat.shared', [
-    require('./components').name,
-    require('./constants').name,
-    require('./resources').name,
-    require('./services').name
+module.exports = angular.module('deltachat-ui.shared', [
+  require('./components').name,
+  require('./constants').name,
+  require('./resources').name,
+  require('./services').name
 ]);

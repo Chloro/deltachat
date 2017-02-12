@@ -1,0 +1,6 @@
+{
+  "disallowTabs": true,
+  "preset": "google",
+  "requireCamelCaseOrUpperCaseIdentifiers": "ignoreProperties",
+  "maximumLineLength": 125
+}

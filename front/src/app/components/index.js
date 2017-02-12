@@ -1,4 +1,4 @@
-module.exports = angular.module('deltaChat.components', [
+module.exports = angular.module('deltachat-ui.components', [
   require('./footer').name,
   require('./header').name,
   require('./mainview').name,

@@ -1,0 +1,11 @@
+<div class="modal"
+     modal-in-class="in"
+     modal-render="{{$isRendered}}"
+     ng-style="{'z-index': 1050 + index*10, display: 'block'}"
+     role="dialog"
+     tabindex="-1"
+     uib-modal-animation-class="fade">
+  <div class="modal-dialog {{size ? 'modal-' + size : ''}}">
+    <div class="modal-content" role="document" uib-modal-transclude></div>
+  </div>
+</div>

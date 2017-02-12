@@ -4,7 +4,8 @@ var version = require('../package.json').version;
 module.exports = {
   env: nodeEnv,
   isProd: 'prod' === nodeEnv,
-  minify: ['prod', 'qa'].indexOf(nodeEnv) > -1,
-  sourceMaps: ['dev', 'local'].indexOf(nodeEnv) > -1,
-  version: version
+  minify: true,
+  sourceMaps: false,
+  version: version,
+  watch: ['dev'].indexOf(nodeEnv) > -1
 };
