@@ -1,11 +1,7 @@
 <div id="main-view" layout="column">
-
-  <header></header>
-
+  <header ng-if="$root.showHeader"></header>
   <div class="main-content" layout="row">
     <side-nav layout="column" flex-gt-sm="20" flex-gt-xs="30" flex-xs="0"></side-nav>
     <md-content layout="column" flex="auto" ui-view="main"></md-content>
   </div>
-
-  <!--<footer></footer>-->
 </div>

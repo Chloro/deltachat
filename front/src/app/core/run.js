@@ -34,9 +34,9 @@ module.exports = /*@ngInject*/ function(
     authenticate(event, toState);
   });
 
-  $rootScope.$on('$stateChangeSuccess', function(event, toState) {
-    showSidebar(event, toState);
-  });
+  // $rootScope.$on('$stateChangeSuccess', function(event, toState) {
+  //   showSidebar(event, toState);
+  // });
 
   function authenticate(event, toState) {
     if (toState.authenticate) {
@@ -45,37 +45,30 @@ module.exports = /*@ngInject*/ function(
 
       if (!token || (token && !isAuthenticated)) {
         event.preventDefault();
-
         sessionStorageService.clearSession();
-
         $rootScope.showHeader = false;
-        $rootScope.showFooter = true;
-
         $state.transitionTo(stateConstant.LOGIN);
       } else {
         $rootScope.showHeader = true;
-        $rootScope.showFooter = true;
       }
     } else if (toState.name === stateConstant.LOGIN) {
       $rootScope.showHeader = false;
-      $rootScope.showFooter = true;
     } else {
       $rootScope.showHeader = true;
-      $rootScope.showFooter = true;
     }
   }
 
-  function showSidebar(event, toState) {
-    if (toState.name === stateConstant.SIGN_IN) {
-      $rootScope.showSideNav = false;
-    } else if (toState.name === stateConstant.DEFAULT) {
-      $rootScope.showSideNav = true;
-      sessionStorageService.set(sessionStorageKeyConstant.SHOW_SIDEBAR, $rootScope.showSideNav);
-    } else {
-      var sessionStorageValue = sessionStorageService.get(sessionStorageKeyConstant.SHOW_SIDEBAR);
-      $rootScope.showSideNav = !!sessionStorageValue;
-    }
-  }
+  // function showSidebar(event, toState) {
+  //   if (toState.name === stateConstant.SIGN_IN) {
+  //     $rootScope.showSideNav = false;
+  //   } else if (toState.name === stateConstant.DEFAULT) {
+  //     $rootScope.showSideNav = true;
+  //     sessionStorageService.set(sessionStorageKeyConstant.SHOW_SIDEBAR, $rootScope.showSideNav);
+  //   } else {
+  //     var sessionStorageValue = sessionStorageService.get(sessionStorageKeyConstant.SHOW_SIDEBAR);
+  //     $rootScope.showSideNav = !!sessionStorageValue;
+  //   }
+  // }
 
   // Remove momentjs from the standard global scope to avoid accidental use in a non-angular way.
   if ($window.moment) {

@@ -8,7 +8,6 @@ module.exports = angular.module('deltachat-ui.bundles.minimum', [
   require('../../shared/components/form').name,
   require('../../shared/components/i').name,
   require('../../shared/components/modal').name,
-  require('../../shared/components/nav-menu').name,
   require('../../shared/constants').name,
   require('../../shared/resources/login').name
 ])

@@ -1,9 +1,5 @@
 module.exports = [
   {
-    key: '/components/footer/footer.html',
-    html: require('../../components/footer/footer.html')
-  },
-  {
     key: '/components/header/header.html',
     html: require('../../components/header/header.html')
   },
@@ -22,9 +18,5 @@ module.exports = [
   {
     key: '/shared/components/modal/modal-window.html',
     html: require('../../shared/components/modal/modal-window.html')
-  },
-  {
-    key: '/shared/components/nav-menu/nav-menu.html',
-    html: require('../../shared/components/nav-menu/nav-menu.html')
   }
 ];
